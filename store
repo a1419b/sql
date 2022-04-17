@@ -5,14 +5,13 @@ code int primary key,
 name varchar(20) unique,
 continent_name varchar(20) not null
 );
-
 CREATE table users(
 id int primary key,
 full_name varchar(20),
 email varchar(20) unique,
 gender char(1)check(gender ="m" or gender ="f"),
 date_of_birth varchar(15),
-created_at datetime,
+created_at datetime not null default CURRENT_TIMESTAMP,
 country_code int,
 foreign key (country_code) references countries(code)
 );
@@ -20,7 +19,7 @@ CREATE table orders(
 id int primary key,
 user_id int,
 status varchar(6)check(status ="start" or status ="finish"),
-created_at datetime,
+created_at datetime not null default CURRENT_TIMESTAMP,
 foreign key (user_id) references users(id)
 );
 CREATE table order_products(
@@ -36,7 +35,7 @@ id int primary key,
 name varchar(10) not null,
 price int default 0,
 status varchar(10)check(status ="valid" or status ="expired"),
-created_at datetime
+created_at datetime not null default CURRENT_TIMESTAMP
 );
 
 select * from countries;
@@ -45,13 +44,12 @@ select * from orders;
 select * from products;
 select * from order_products;
 
-
 insert into countries value(1,'Ajayeb','ksa');
 insert into countries value(2,'Aja','Asia');
-insert into users value(2,'Ajayeb Althiabi','Ajayeb@gmail.com','f','10/06/1998','2015-12-25T15:32:06.427',1);
-insert into orders value(3,2,'start','2020-12-25T15:32:06.427');
-insert into products value(6,'Ajayeb',2000000,"valid",'2020-12-25T15:32:06.427');
-insert into products value(8,'Ajayeb',2000000,"valid",'2020-12-25T15:32:06.427');
+insert into users value(2,'Ajayeb Althiabi','Ajayeb@gmail.com','f','10/06/1998',CURRENT_TIMESTAMP,1);
+insert into orders value(3,2,'start',CURRENT_TIMESTAMP);
+insert into products value(6,'Ajayeb',2000000,"valid",CURRENT_TIMESTAMP);
+insert into products value(8,'Ajayeb',2000000,"valid",CURRENT_TIMESTAMP);
 insert into order_products value(3,6,8);
 
 update countries set name='AjayrbAL' where code=1;
